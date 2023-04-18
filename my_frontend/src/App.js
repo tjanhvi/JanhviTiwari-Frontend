@@ -1,0 +1,95 @@
+import React, { useState, memo, useEffect } from "react";
+import PropTypes from "prop-types";
+
+const WrappedSingleListItem = ({
+  index,
+  isSelected, 
+  onClickHandler, 
+  text 
+}) => {  
+  const [select, setSelect] = useState(false);
+  useEffect(() => {
+    index === isSelected ? setSelect(true) : setSelect(false);
+  }, [index, isSelected]);
+
+  return select ? (
+    <li
+      style={{ 
+        backgroundColor: "green",
+        color: "black", 
+        cursor: "pointer", 
+        width: "70%", 
+        height: "30px",
+        fontSize: "20px",
+        border: "1px solid black"
+      }}
+      onClick={() => onClickHandler(index)}
+    >
+      {text}{" "}
+    </li>
+  ) : (
+    <li
+      style={{ 
+        backgroundColor: "red",
+        color: "black", 
+        cursor: "pointer", 
+        width: "70%", 
+        height: "30px",
+        fontSize: "20px",
+        border: "1px solid black" 
+      }}
+      onClick={() => onClickHandler(index)}
+    >
+      {text}{" "}
+    </li>
+  );
+};
+
+WrappedSingleListItem.propTypes = {
+  index: PropTypes.number,
+  isSelected: PropTypes.number,
+  onClickHandler: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+};
+
+const SingleListItem = memo(WrappedSingleListItem);
+
+const WrappedListComponent = ({
+  items 
+}) => {
+  const [selectIndex, setSelectIndex] = useState(false);
+  const handleClick = (index) => {
+    setSelectIndex(index);
+  };
+  return (
+    <ul style={{ textAlign: 'left' }}>
+      {items.map((item, index) => (
+        <SingleListItem
+          onClickHandler={(index) => handleClick(index)}
+          text={item.text}
+          index={index}
+          isSelected={selectIndex}
+          key={index}
+        />
+      ))}
+    </ul>
+  );
+};
+WrappedListComponent.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+    })
+  ),
+};
+WrappedListComponent.defaultProps = {
+  items: [
+    { text: "My Registration no. is 12012898" },
+    { text: "My name is Janhvi Tiwari" },
+    { text: "I am an undergraduate student" },
+    { text: "I study in Lovely Professional University" },
+  ],
+};
+const List = memo(WrappedListComponent);
+
+export default List;
