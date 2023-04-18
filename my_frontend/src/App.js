@@ -8,6 +8,7 @@ const WrappedSingleListItem = ({
   text 
 }) => {  
   const [select, setSelect] = useState(false);
+  
   useEffect(() => {
     index === isSelected ? setSelect(true) : setSelect(false);
   }, [index, isSelected]);

@@ -1,0 +1,7 @@
+### Q. Explain what the simple List component does.
+
+Answer =>
+
+In React, a simple list component is used to render a list of items, such as a collection of data or a set of options. It is a simple and commonly used component in React applications.
+
+The List component takes an array of data as its input, and then maps over the array to generate a series of child components. Each child component can then display the data in a specific format, such as a table, a set of cards, or a simple list.
